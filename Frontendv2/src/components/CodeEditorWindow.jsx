@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import Editor from "@monaco-editor/react";
-// import { CodeiumEditor } from "@codeium/react-code-editor";
+import { CodeiumEditor } from "@codeium/react-code-editor";
 
 const CodeEditorWindow = ({ onChange, language, code, theme }) => {
   const [value, setValue] = useState(code || "");
@@ -13,7 +13,7 @@ const CodeEditorWindow = ({ onChange, language, code, theme }) => {
 
   return (
     <div className="overlay rounded-md overflow-hidden w-full h-full shadow-4xl">
-      {/* <CodeiumEditor
+      <CodeiumEditor
         height="85vh"
         width={`100%`}
         language={language || "javascript"}
@@ -21,7 +21,7 @@ const CodeEditorWindow = ({ onChange, language, code, theme }) => {
         theme={theme}
         defaultValue=""
         onChange={handleEditorChange}
-      /> */}
+      />
     </div>
   );
 };

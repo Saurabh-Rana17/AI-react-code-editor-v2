@@ -58,7 +58,7 @@ const CodeEditorWindow2 = ({ onChange, language, code, theme }) => {
   return (
     <>
       <div className="overlay rounded-md overflow-hidden w-full h-full shadow-4xl">
-        <AceEditor
+        {/* <AceEditor
           ref={editorRef}
           height="85vh"
           width={`100%`}
@@ -74,7 +74,7 @@ const CodeEditorWindow2 = ({ onChange, language, code, theme }) => {
             enableSnippets: true,
           }}
           onChange={handleEditorChange}
-        />
+        /> */}
       </div>
     </>
   );

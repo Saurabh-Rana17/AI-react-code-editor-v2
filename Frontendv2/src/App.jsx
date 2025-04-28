@@ -1,7 +1,8 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
 import Landing from "./components/Landing";
-// import LiveEditor from "./components/LiveEditor";
+import Test from "./Test";
+import LiveEditor from "./components/LiveEditor";
 
 function App() {
   const router = createBrowserRouter([
@@ -9,10 +10,14 @@ function App() {
       path: "/",
       element: <Landing />,
     },
-    // {
-    //   path: "/preview",
-    //   element: <LiveEditor />,
-    // },
+    {
+      path: "/preview",
+      element: <LiveEditor />,
+    },
+    {
+      path: "/test",
+      element: <Test />,
+    },
   ]);
   return <RouterProvider router={router} />;
 }
