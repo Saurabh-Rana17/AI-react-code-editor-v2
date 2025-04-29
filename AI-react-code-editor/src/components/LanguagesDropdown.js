@@ -4,33 +4,24 @@ import { customStyles } from "../constants/customStyles";
 import { languageOptions } from "../constants/languageOptions";
 import languageConstant from "../constants/languageConstant";
 
-const LanguagesDropdown = ({ onSelectChange, isOffline }) => {
+const LanguagesDropdown = ({ onSelectChange }) => {
   const options = [
     { name: "javascript", label: "Javascipt" },
     { name: "python", label: "Python" },
     { name: "java", label: "Java" },
   ];
-  if (isOffline) {
-    return (
+
+  return (
+    <div className="px-1 ml-1 py-2 mr-2">
       <Select
         className="text-black w-44"
-        placeholder="Javascript"
-        onChange={(selectedOption) => onSelectChange(selectedOption)}
-        defaultValue={"javascript"}
+        placeholder={`Filter By Category`}
+        options={languageConstant}
         styles={customStyles}
-        options={options}
+        defaultValue={languageConstant[54]}
+        onChange={(selectedOption) => onSelectChange(selectedOption)}
       />
-    );
-  }
-  return (
-    <Select
-      className="text-black w-44"
-      placeholder={`Filter By Category`}
-      options={languageConstant}
-      styles={customStyles}
-      defaultValue={languageConstant[54]}
-      onChange={(selectedOption) => onSelectChange(selectedOption)}
-    />
+    </div>
   );
 };
 

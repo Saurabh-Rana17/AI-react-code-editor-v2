@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import CodeEditorWindow from "../../components/CodeEditorWindow";
 import axios from "axios";
 import { classnames } from "../../utils/general";
-import { languageOptions } from "../../constants/languageOptions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { defineTheme } from "../../lib/defineTheme";
@@ -11,16 +10,9 @@ import Footer from "../../components/Footer";
 import OutputWindow from "../../components/OutputWindow";
 import CustomInput from "../../components/CustomInput";
 import OutputDetails from "../../components/OutputDetails";
-import ThemeDropdown from "../../components/ThemeDropdown";
-import LanguagesDropdown from "../../components/LanguagesDropdown";
 import CodeEditorWindow2 from "../../components/CodeEditorWindow2";
-import { Button, Modal, Spinner, Tabs, TextInput } from "flowbite-react";
-import { Link, json } from "react-router-dom";
-import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
-import { SiCcleaner, SiCompilerexplorer } from "react-icons/si";
-import { CiSaveDown2 } from "react-icons/ci";
+import { SiCompilerexplorer } from "react-icons/si";
 import languageConstant from "../../constants/languageConstant";
-import { VscOpenPreview } from "react-icons/vsc";
 import Menu from "./Menu";
 
 const javascriptDefault = `/**
@@ -76,13 +68,13 @@ const MainEditor = () => {
     setLanguage(sl);
   };
 
-  // useEffect(() => {
-  //   if (enterPress && ctrlPress) {
-  //     console.log("enterPress", enterPress);
-  //     console.log("ctrlPress", ctrlPress);
-  //     handlePiston();
-  //   }
-  // }, [ctrlPress, enterPress]);
+  useEffect(() => {
+    if (enterPress && ctrlPress) {
+      console.log("enterPress", enterPress);
+      console.log("ctrlPress", ctrlPress);
+      handlePiston();
+    }
+  }, [ctrlPress, enterPress]);
   const onChange = (action, data) => {
     switch (action) {
       case "code": {
@@ -309,19 +301,6 @@ const MainEditor = () => {
     }
   }
 
-  function handleFileChange(event) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = (event) => {
-      const content = event.target.result;
-      setCode(content);
-      setFileCode(content);
-      // console.log(content);
-    };
-
-    reader.readAsText(file);
-  }
   // console.log(code);
 
   // console.log(activePrompt);
@@ -342,7 +321,8 @@ const MainEditor = () => {
       {/* menu */}
 
       <Menu
-        handleFileChange={handleFileChange}
+        setCode={setCode}
+        setFileCode={setFileCode}
         onSelectChange={onSelectChange}
         handleThemeChange={handleThemeChange}
         theme={theme}

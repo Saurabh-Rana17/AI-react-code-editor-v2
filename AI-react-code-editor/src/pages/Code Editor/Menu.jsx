@@ -6,9 +6,10 @@ import { VscOpenPreview } from "react-icons/vsc";
 import { CiSaveDown2 } from "react-icons/ci";
 import { Button, Modal, Spinner, TextInput } from "flowbite-react";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
+import FileUploader from "./FileUploader";
+import SwitchAi from "./SwitchAi";
 
 export default function Menu({
-  handleFileChange,
   onSelectChange,
   handleThemeChange,
   theme,
@@ -26,32 +27,16 @@ export default function Menu({
   handleSelfGpt,
   gptLoading,
   gptResponse,
+  setCode,
+  setFileCode,
 }) {
   return (
     <div className="flex flex-row">
-      <div className="px-1 py-2">
-        <input className="w-28" type="file" onChange={handleFileChange} />
-      </div>
-      <div className="px-1 ml-1 py-2 mr-2">
-        <LanguagesDropdown onSelectChange={onSelectChange} />
-      </div>
-      <div className="px-4 py-2">
-        <ThemeDropdown handleThemeChange={handleThemeChange} theme={theme} />
-      </div>
-      <div className="px-2 py-2 ">
-        <button
-          onClick={handleShowAiEditor}
-          className=" border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] px-4 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0"
-        >
-          {" "}
-          <div
-            className={`h-2 w-2 mr-1 rounded-full  inline-block ${
-              showAiEditor ? "bg-green-500" : "bg-red-500"
-            }`}
-          ></div>
-          Ai Editor
-        </button>
-      </div>
+      <FileUploader setCode={setCode} setFileCode={setFileCode} />
+      <LanguagesDropdown onSelectChange={onSelectChange} />
+      <ThemeDropdown handleThemeChange={handleThemeChange} theme={theme} />
+      <SwitchAi handleShowAiEditor={handleShowAiEditor} />
+
       <div className="px-2 py-2 ">
         <button
           onClick={() => {
@@ -65,6 +50,7 @@ export default function Menu({
           Ask AI{" "}
         </button>
       </div>
+
       <div className="px-2 py-2 ">
         <Link
           to={"preview"}
@@ -114,17 +100,6 @@ export default function Menu({
             >
               Pai-001
             </button>
-            {/* <button
-          className={`px-3 py-2 my-2 rounded-xl hover:bg-gray-200 mx-2 border-2 ${
-            activePrompt === "selfgpt" && "bg-gray-200"
-          }`}
-          onClick={() => setActivePrompt("selfgpt")}
-        >
-          <span>
-            <RiRobot2Line className="inline-block mr-1" />
-            Ai Model
-          </span>
-        </button> */}
           </div>
           <pre className="mt-3 ">
             {gptLoading && (
