@@ -14,8 +14,6 @@ import CodeEditorWindow2 from "../../components/CodeEditorWindow2";
 import { SiCompilerexplorer } from "react-icons/si";
 import languageConstant from "../../constants/languageConstant";
 import Menu from "./Menu";
-import { Button, Modal, Spinner, TextInput } from "flowbite-react";
-import SyntaxHighlighter from "react-syntax-highlighter";
 import AiModal from "./AiModal";
 
 const javascriptDefault = `/**

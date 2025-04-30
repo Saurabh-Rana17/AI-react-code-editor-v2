@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useSearchParams } from "react-router-dom";
 
 export default function SwitchAi({ handleShowAiEditor }) {
   const [isGreen, setIsGreen] = useState(false);
