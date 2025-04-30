@@ -14,6 +14,9 @@ import CodeEditorWindow2 from "../../components/CodeEditorWindow2";
 import { SiCompilerexplorer } from "react-icons/si";
 import languageConstant from "../../constants/languageConstant";
 import Menu from "./Menu";
+import { Button, Modal, Spinner, TextInput } from "flowbite-react";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import AiModal from "./AiModal";
 
 const javascriptDefault = `/**
 * Problem: Binary Search: Search a sorted array for a target value.
@@ -397,6 +400,19 @@ const MainEditor = () => {
       </div>
 
       <Footer />
+
+      <AiModal
+        activePrompt={activePrompt}
+        gptLoading={gptLoading}
+        gptResponse={gptResponse}
+        handleGptResp={handleGptResp}
+        handleSelfGpt={handleSelfGpt}
+        openModal={openModal}
+        promtValue={promtValue}
+        setActivePrompt={setActivePrompt}
+        setOpenModal={setOpenModal}
+        setPromptValue={setPromptValue}
+      />
     </>
   );
 };
