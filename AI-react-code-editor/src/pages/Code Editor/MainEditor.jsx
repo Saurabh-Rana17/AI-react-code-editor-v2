@@ -162,8 +162,14 @@ const MainEditor = () => {
   };
 
   function handleShowAiEditor() {
-    console.log("handleShowAiEditor clicked");
     setShowAiEditor((prev) => !prev);
+  }
+
+  function handleAskAi() {
+    setOpenModal(true);
+    setPromptValue("");
+    setGptResponse("");
+    setActivePrompt("pai");
   }
 
   async function handleGptResp(e) {
@@ -329,7 +335,6 @@ const MainEditor = () => {
         handleShowAiEditor={handleShowAiEditor}
         showAiEditor={showAiEditor}
         setActivePrompt={setActivePrompt}
-        setGptResponse={setGptResponse}
         setOpenModal={setOpenModal}
         setPromptValue={setPromptValue}
         activePrompt={activePrompt}
@@ -340,6 +345,7 @@ const MainEditor = () => {
         handleSelfGpt={handleSelfGpt}
         openModal={openModal}
         promtValue={promtValue}
+        handleAskAi={handleAskAi}
       />
       {/* window */}
       <div className="flex flex-row space-x-4 items-start px-4 py-4">

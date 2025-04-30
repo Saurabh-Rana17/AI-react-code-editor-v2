@@ -8,16 +8,16 @@ import { Button, Modal, Spinner, TextInput } from "flowbite-react";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
 import FileUploader from "./FileUploader";
 import SwitchAi from "./SwitchAi";
+import AskAiButton from "./AskAiButton";
+import PreviewEditorButton from "./PreviewEditorButton";
 
 export default function Menu({
   onSelectChange,
   handleThemeChange,
   theme,
   handleShowAiEditor,
-  showAiEditor,
   setOpenModal,
   setPromptValue,
-  setGptResponse,
   setActivePrompt,
   handleSave,
   openModal,
@@ -29,6 +29,7 @@ export default function Menu({
   gptResponse,
   setCode,
   setFileCode,
+  handleAskAi,
 }) {
   return (
     <div className="flex flex-row">
@@ -36,30 +37,8 @@ export default function Menu({
       <LanguagesDropdown onSelectChange={onSelectChange} />
       <ThemeDropdown handleThemeChange={handleThemeChange} theme={theme} />
       <SwitchAi handleShowAiEditor={handleShowAiEditor} />
-
-      <div className="px-2 py-2 ">
-        <button
-          onClick={() => {
-            setOpenModal(true);
-            setPromptValue("");
-            setGptResponse("");
-            setActivePrompt("pai");
-          }}
-          className=" border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] px-4 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0"
-        >
-          Ask AI{" "}
-        </button>
-      </div>
-
-      <div className="px-2 py-2 ">
-        <Link
-          to={"preview"}
-          className=" inline-block cursor-pointer border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] px-4 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0 font-bold"
-        >
-          <VscOpenPreview className="inline-block mr-1" />
-          Preview Editor
-        </Link>
-      </div>
+      <AskAiButton handleAskAi={handleAskAi} />
+      <PreviewEditorButton />
 
       <div className="px-2 py-2 ">
         <button

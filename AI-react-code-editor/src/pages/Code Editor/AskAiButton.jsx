@@ -1,0 +1,14 @@
+import React from "react";
+
+export default function AskAiButton({ handleAskAi }) {
+  return (
+    <div className="px-2 py-2 ">
+      <button
+        onClick={handleAskAi}
+        className=" border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] px-4 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0"
+      >
+        Ask AI
+      </button>
+    </div>
+  );
+}
