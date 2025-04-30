@@ -1,8 +1,6 @@
 import React from "react";
 import LanguagesDropdown from "../../components/LanguagesDropdown";
 import ThemeDropdown from "../../components/ThemeDropdown";
-import { Link } from "react-router-dom";
-import { VscOpenPreview } from "react-icons/vsc";
 import { CiSaveDown2 } from "react-icons/ci";
 import { Button, Modal, Spinner, TextInput } from "flowbite-react";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
@@ -10,6 +8,7 @@ import FileUploader from "./FileUploader";
 import SwitchAi from "./SwitchAi";
 import AskAiButton from "./AskAiButton";
 import PreviewEditorButton from "./PreviewEditorButton";
+import SaveButton from "./SaveButton";
 
 export default function Menu({
   onSelectChange,
@@ -39,16 +38,7 @@ export default function Menu({
       <SwitchAi handleShowAiEditor={handleShowAiEditor} />
       <AskAiButton handleAskAi={handleAskAi} />
       <PreviewEditorButton />
-
-      <div className="px-2 py-2 ">
-        <button
-          className=" inline-block cursor-pointer border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] px-4 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0 font-bold "
-          onClick={handleSave}
-        >
-          <CiSaveDown2 className="inline-block mr-1" />
-          Save
-        </button>
-      </div>
+      <SaveButton handleSave={handleSave} />
 
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>Ask Ai</Modal.Header>
