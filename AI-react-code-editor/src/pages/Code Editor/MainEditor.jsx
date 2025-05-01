@@ -56,9 +56,6 @@ const MainEditor = () => {
   const [language, setLanguage] = useState(languageConstant[54]);
   const [showAiEditor, setShowAiEditor] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [gptResponse, setGptResponse] = useState("");
-  const [promtValue, setPromptValue] = useState("");
-  const [gptLoading, setGptLoading] = useState(false);
   const [activePrompt, setActivePrompt] = useState("pai");
   const [filecode, setFileCode] = useState("");
 
@@ -169,58 +166,7 @@ const MainEditor = () => {
 
   function handleAskAi() {
     setOpenModal(true);
-    setPromptValue("");
-    setGptResponse("");
     setActivePrompt("pai");
-  }
-
-  async function handleGptResp(e) {
-    e.preventDefault();
-    console.log(promtValue);
-    setGptLoading(true);
-
-    try {
-      const response = await fetch(
-        "https://ai-react-code-editor.onrender.com/api/generate",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ prompt: promtValue }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch response");
-      }
-
-      const data = await response.json();
-      setGptResponse(data.response.replace("```", ""));
-    } catch (error) {
-      console.error(error.message);
-    } finally {
-      setGptLoading(false);
-    }
-  }
-
-  async function handleSelfGpt() {
-    console.log(promtValue);
-    setGptLoading(true);
-    const promptData = {
-      keyword: promtValue,
-    };
-    const res = await fetch("http://127.0.0.1:5000/predict", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(promptData),
-    });
-    const data = await res.json();
-    console.log(data.predicted_code);
-    setGptResponse(data.predicted_code);
-    setGptLoading(false);
   }
 
   function handleSave() {
@@ -338,15 +284,9 @@ const MainEditor = () => {
           showAiEditor={showAiEditor}
           setActivePrompt={setActivePrompt}
           setOpenModal={setOpenModal}
-          setPromptValue={setPromptValue}
           activePrompt={activePrompt}
-          gptLoading={gptLoading}
-          gptResponse={gptResponse}
-          handleGptResp={handleGptResp}
           handleSave={handleSave}
-          handleSelfGpt={handleSelfGpt}
           openModal={openModal}
-          promtValue={promtValue}
           handleAskAi={handleAskAi}
         />
         {/* window */}
@@ -400,18 +340,7 @@ const MainEditor = () => {
 
         <Footer />
 
-        <AiModal
-          activePrompt={activePrompt}
-          gptLoading={gptLoading}
-          gptResponse={gptResponse}
-          handleGptResp={handleGptResp}
-          handleSelfGpt={handleSelfGpt}
-          openModal={openModal}
-          promtValue={promtValue}
-          setActivePrompt={setActivePrompt}
-          setOpenModal={setOpenModal}
-          setPromptValue={setPromptValue}
-        />
+        <AiModal openModal={openModal} setOpenModal={setOpenModal} />
       </EditorContext.Provider>
     </>
   );

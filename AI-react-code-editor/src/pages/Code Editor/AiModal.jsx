@@ -1,19 +1,42 @@
 import { Button, Modal, Spinner, TextInput } from "flowbite-react";
-import React from "react";
+import React, { useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 
-export default function AiModal({
-  setOpenModal,
-  setPromptValue,
-  setActivePrompt,
-  openModal,
-  handleGptResp,
-  promtValue,
-  activePrompt,
-  handleSelfGpt,
-  gptLoading,
-  gptResponse,
-}) {
+export default function AiModal({ openModal, setOpenModal }) {
+  const [gptLoading, setGptLoading] = useState(false);
+  const [gptResponse, setGptResponse] = useState("");
+  const [promtValue, setPromptValue] = useState("");
+
+  async function handleGptResp(e) {
+    e.preventDefault();
+    console.log(promtValue);
+    setGptLoading(true);
+
+    try {
+      const response = await fetch(
+        "https://ai-react-code-editor.onrender.com/api/generate",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ prompt: promtValue }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch response");
+      }
+
+      const data = await response.json();
+      setGptResponse(data.response.replace("```", ""));
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      setGptLoading(false);
+    }
+  }
+
   return (
     <Modal show={openModal} onClose={() => setOpenModal(false)}>
       <Modal.Header>Ask Ai</Modal.Header>
@@ -29,22 +52,12 @@ export default function AiModal({
           <Button
             className="inline-block"
             color={"success"}
-            onClick={activePrompt === "pai" ? handleGptResp : handleSelfGpt}
-            // onClick={handleSelfGpt}
+            onClick={handleGptResp}
           >
             Generate
           </Button>
         </form>
-        <div className="mt-1">
-          <button
-            className={`px-3 py-2 my-2 rounded-xl hover:bg-gray-200 mx-2 border-2 ${
-              activePrompt === "pai" && "bg-gray-200"
-            }  `}
-            onClick={() => setActivePrompt("pai")}
-          >
-            Pai-001
-          </button>
-        </div>
+
         <pre className="mt-3 ">
           {gptLoading && (
             <>
@@ -70,7 +83,7 @@ export default function AiModal({
       </Modal.Body>
       <Modal.Footer>
         <Button color={"failure"} onClick={() => setOpenModal(false)}>
-          Close{" "}
+          Close
         </Button>
       </Modal.Footer>
     </Modal>
