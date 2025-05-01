@@ -12,13 +12,11 @@ export default function Menu({
   theme,
   handleShowAiEditor,
   handleSave,
-  setCode,
-  setFileCode,
   handleAskAi,
 }) {
   return (
     <div className="flex flex-row">
-      <FileUploader setCode={setCode} setFileCode={setFileCode} />
+      <FileUploader />
       <LanguagesDropdown />
       <ThemeDropdown handleThemeChange={handleThemeChange} theme={theme} />
       <SwitchAi handleShowAiEditor={handleShowAiEditor} />

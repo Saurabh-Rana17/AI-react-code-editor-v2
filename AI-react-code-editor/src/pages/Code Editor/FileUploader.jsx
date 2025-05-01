@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { EditorContext } from "./EditorContext";
 
-export default function FileUploader({ setCode, setFileCode }) {
+export default function FileUploader() {
+  const { setCode, setFileCode } = useContext(EditorContext);
   function handleFileChange(event) {
     const file = event.target.files[0];
     const reader = new FileReader();

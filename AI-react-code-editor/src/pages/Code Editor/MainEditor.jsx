@@ -16,36 +16,7 @@ import languageConstant from "../../constants/languageConstant";
 import Menu from "./Menu";
 import AiModal from "./AiModal";
 import { EditorContext } from "./EditorContext";
-
-const javascriptDefault = `/**
-* Problem: Binary Search: Search a sorted array for a target value.
-*/
-
-// Time: O(log n)
-const binarySearch = (arr, target) => {
- return binarySearchHelper(arr, target, 0, arr.length - 1);
-};
-
-const binarySearchHelper = (arr, target, start, end) => {
- if (start > end) {
-   return false;
- }
- let mid = Math.floor((start + end) / 2);
- if (arr[mid] === target) {
-   return mid;
- }
- if (arr[mid] < target) {
-   return binarySearchHelper(arr, target, mid + 1, end);
- }
- if (arr[mid] > target) {
-   return binarySearchHelper(arr, target, start, mid - 1);
- }
-};
-
-const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const target = 5;
-console.log(binarySearch(arr, target));
-`;
+import { javascriptDefault } from "../../utils/CONSTANT";
 
 const MainEditor = () => {
   const [code, setCode] = useState(javascriptDefault);
@@ -260,7 +231,7 @@ const MainEditor = () => {
   // console.log(activePrompt);
   return (
     <>
-      <EditorContext.Provider value={{ onSelectChange }}>
+      <EditorContext.Provider value={{ onSelectChange, setCode, setFileCode }}>
         <ToastContainer
           position="top-right"
           autoClose={2000}
@@ -276,18 +247,11 @@ const MainEditor = () => {
         {/* menu */}
 
         <Menu
-          setCode={setCode}
-          setFileCode={setFileCode}
-          handleThemeChange={handleThemeChange}
           theme={theme}
-          handleShowAiEditor={handleShowAiEditor}
-          showAiEditor={showAiEditor}
-          setActivePrompt={setActivePrompt}
-          setOpenModal={setOpenModal}
-          activePrompt={activePrompt}
+          handleThemeChange={handleThemeChange}
           handleSave={handleSave}
-          openModal={openModal}
           handleAskAi={handleAskAi}
+          handleShowAiEditor={handleShowAiEditor}
         />
         {/* window */}
         <div className="flex flex-row space-x-4 items-start px-4 py-4">
