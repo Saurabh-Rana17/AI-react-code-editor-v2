@@ -27,16 +27,10 @@ const MainEditor = () => {
   const [language, setLanguage] = useState(languageConstant[54]);
   const [showAiEditor, setShowAiEditor] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [activePrompt, setActivePrompt] = useState("pai");
   const [filecode, setFileCode] = useState("");
 
   const enterPress = useKeyPress("Enter");
   const ctrlPress = useKeyPress("Control");
-
-  const onSelectChange = (sl) => {
-    console.log("selected Option...", sl);
-    setLanguage(sl);
-  };
 
   useEffect(() => {
     if (enterPress && ctrlPress) {
@@ -92,16 +86,6 @@ const MainEditor = () => {
     }
   };
 
-  function handleThemeChange(th) {
-    const theme = th;
-    console.log("theme...", theme);
-
-    if (["light", "vs-dark"].includes(theme.value)) {
-      setTheme(theme);
-    } else {
-      defineTheme(theme.value).then((_) => setTheme(theme));
-    }
-  }
   useEffect(() => {
     defineTheme("monokai").then((_) =>
       setTheme({ value: "monokai", label: "monokai" })
@@ -137,7 +121,6 @@ const MainEditor = () => {
 
   function handleAskAi() {
     setOpenModal(true);
-    setActivePrompt("pai");
   }
 
   function handleSave() {
@@ -231,7 +214,9 @@ const MainEditor = () => {
   // console.log(activePrompt);
   return (
     <>
-      <EditorContext.Provider value={{ onSelectChange, setCode, setFileCode }}>
+      <EditorContext.Provider
+        value={{ setLanguage, setCode, setFileCode, theme, setTheme }}
+      >
         <ToastContainer
           position="top-right"
           autoClose={2000}
@@ -247,8 +232,6 @@ const MainEditor = () => {
         {/* menu */}
 
         <Menu
-          theme={theme}
-          handleThemeChange={handleThemeChange}
           handleSave={handleSave}
           handleAskAi={handleAskAi}
           handleShowAiEditor={handleShowAiEditor}

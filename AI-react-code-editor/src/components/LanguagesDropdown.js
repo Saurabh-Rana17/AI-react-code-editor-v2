@@ -5,7 +5,11 @@ import languageConstant from "../constants/languageConstant";
 import { EditorContext } from "../pages/Code Editor/EditorContext";
 
 const LanguagesDropdown = () => {
-  const { onSelectChange } = useContext(EditorContext);
+  const { setLanguage } = useContext(EditorContext);
+  const onSelectChange = (sl) => {
+    console.log("selected Option...", sl);
+    setLanguage(sl);
+  };
 
   return (
     <div className="px-1 ml-1 py-2 mr-2">
