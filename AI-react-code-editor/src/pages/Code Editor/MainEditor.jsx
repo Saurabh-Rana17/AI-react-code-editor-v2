@@ -15,6 +15,7 @@ import { SiCompilerexplorer } from "react-icons/si";
 import languageConstant from "../../constants/languageConstant";
 import Menu from "./Menu";
 import AiModal from "./AiModal";
+import { EditorContext } from "./EditorContext";
 
 const javascriptDefault = `/**
 * Problem: Binary Search: Search a sorted array for a target value.
@@ -308,109 +309,110 @@ const MainEditor = () => {
     }
   }
 
-  // console.log(code);
+  // console.log(code, filecode);
 
   // console.log(activePrompt);
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+      <EditorContext.Provider value={{ onSelectChange }}>
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
 
-      {/* menu */}
+        {/* menu */}
 
-      <Menu
-        setCode={setCode}
-        setFileCode={setFileCode}
-        onSelectChange={onSelectChange}
-        handleThemeChange={handleThemeChange}
-        theme={theme}
-        handleShowAiEditor={handleShowAiEditor}
-        showAiEditor={showAiEditor}
-        setActivePrompt={setActivePrompt}
-        setOpenModal={setOpenModal}
-        setPromptValue={setPromptValue}
-        activePrompt={activePrompt}
-        gptLoading={gptLoading}
-        gptResponse={gptResponse}
-        handleGptResp={handleGptResp}
-        handleSave={handleSave}
-        handleSelfGpt={handleSelfGpt}
-        openModal={openModal}
-        promtValue={promtValue}
-        handleAskAi={handleAskAi}
-      />
-      {/* window */}
-      <div className="flex flex-row space-x-4 items-start px-4 py-4">
-        <div className="flex flex-col w-full h-full justify-start items-end">
-          {showAiEditor && (
-            <CodeEditorWindow
-              key={filecode}
-              code={code}
-              onChange={onChange}
-              language={language?.name}
-              theme={theme.value}
-            />
-          )}
-          {!showAiEditor && (
-            <CodeEditorWindow2
-              key={filecode}
-              code={code}
-              onChange={onChange}
-              language={language?.name}
-              theme={theme.value}
-            />
-          )}
-        </div>
-
-        <div className="right-container flex flex-shrink-0 w-[30%] flex-col">
-          <OutputWindow outputDetails={outputDetails} />
-          <div className="flex flex-col items-end">
-            <CustomInput
-              customInput={customInput}
-              setCustomInput={setCustomInput}
-            />
-            <div>
-              <button
-                onClick={handlePiston}
-                disabled={!code}
-                className={classnames(
-                  "mt-4 inline-block border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] px-4 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0 hover:bg-green-500 hover:text-white",
-                  !code ? "opacity-50" : ""
-                )}
-              >
-                <SiCompilerexplorer className="inline-block m-1" />
-
-                {processing ? "Processing..." : "Compile and Execute"}
-              </button>
-            </div>
+        <Menu
+          setCode={setCode}
+          setFileCode={setFileCode}
+          handleThemeChange={handleThemeChange}
+          theme={theme}
+          handleShowAiEditor={handleShowAiEditor}
+          showAiEditor={showAiEditor}
+          setActivePrompt={setActivePrompt}
+          setOpenModal={setOpenModal}
+          setPromptValue={setPromptValue}
+          activePrompt={activePrompt}
+          gptLoading={gptLoading}
+          gptResponse={gptResponse}
+          handleGptResp={handleGptResp}
+          handleSave={handleSave}
+          handleSelfGpt={handleSelfGpt}
+          openModal={openModal}
+          promtValue={promtValue}
+          handleAskAi={handleAskAi}
+        />
+        {/* window */}
+        <div className="flex flex-row space-x-4 items-start px-4 py-4">
+          <div className="flex flex-col w-full h-full justify-start items-end">
+            {showAiEditor && (
+              <CodeEditorWindow
+                key={filecode}
+                code={code}
+                onChange={onChange}
+                language={language?.name}
+                theme={theme.value}
+              />
+            )}
+            {!showAiEditor && (
+              <CodeEditorWindow2
+                key={filecode}
+                code={code}
+                onChange={onChange}
+                language={language?.name}
+                theme={theme.value}
+              />
+            )}
           </div>
-          {outputDetails && <OutputDetails outputDetails={outputDetails} />}
+
+          <div className="right-container flex flex-shrink-0 w-[30%] flex-col">
+            <OutputWindow outputDetails={outputDetails} />
+            <div className="flex flex-col items-end">
+              <CustomInput
+                customInput={customInput}
+                setCustomInput={setCustomInput}
+              />
+              <div>
+                <button
+                  onClick={handlePiston}
+                  disabled={!code}
+                  className={classnames(
+                    "mt-4 inline-block border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] px-4 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0 hover:bg-green-500 hover:text-white",
+                    !code ? "opacity-50" : ""
+                  )}
+                >
+                  <SiCompilerexplorer className="inline-block m-1" />
+
+                  {processing ? "Processing..." : "Compile and Execute"}
+                </button>
+              </div>
+            </div>
+            {outputDetails && <OutputDetails outputDetails={outputDetails} />}
+          </div>
         </div>
-      </div>
 
-      <Footer />
+        <Footer />
 
-      <AiModal
-        activePrompt={activePrompt}
-        gptLoading={gptLoading}
-        gptResponse={gptResponse}
-        handleGptResp={handleGptResp}
-        handleSelfGpt={handleSelfGpt}
-        openModal={openModal}
-        promtValue={promtValue}
-        setActivePrompt={setActivePrompt}
-        setOpenModal={setOpenModal}
-        setPromptValue={setPromptValue}
-      />
+        <AiModal
+          activePrompt={activePrompt}
+          gptLoading={gptLoading}
+          gptResponse={gptResponse}
+          handleGptResp={handleGptResp}
+          handleSelfGpt={handleSelfGpt}
+          openModal={openModal}
+          promtValue={promtValue}
+          setActivePrompt={setActivePrompt}
+          setOpenModal={setOpenModal}
+          setPromptValue={setPromptValue}
+        />
+      </EditorContext.Provider>
     </>
   );
 };

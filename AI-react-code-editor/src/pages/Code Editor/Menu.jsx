@@ -8,7 +8,6 @@ import PreviewEditorButton from "./PreviewEditorButton";
 import SaveButton from "./SaveButton";
 
 export default function Menu({
-  onSelectChange,
   handleThemeChange,
   theme,
   handleShowAiEditor,
@@ -20,7 +19,7 @@ export default function Menu({
   return (
     <div className="flex flex-row">
       <FileUploader setCode={setCode} setFileCode={setFileCode} />
-      <LanguagesDropdown onSelectChange={onSelectChange} />
+      <LanguagesDropdown />
       <ThemeDropdown handleThemeChange={handleThemeChange} theme={theme} />
       <SwitchAi handleShowAiEditor={handleShowAiEditor} />
       <AskAiButton handleAskAi={handleAskAi} />

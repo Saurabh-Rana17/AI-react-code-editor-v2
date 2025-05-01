@@ -1,15 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import Select from "react-select";
 import { customStyles } from "../constants/customStyles";
-import { languageOptions } from "../constants/languageOptions";
 import languageConstant from "../constants/languageConstant";
+import { EditorContext } from "../pages/Code Editor/EditorContext";
 
-const LanguagesDropdown = ({ onSelectChange }) => {
-  const options = [
-    { name: "javascript", label: "Javascipt" },
-    { name: "python", label: "Python" },
-    { name: "java", label: "Java" },
-  ];
+const LanguagesDropdown = () => {
+  const { onSelectChange } = useContext(EditorContext);
 
   return (
     <div className="px-1 ml-1 py-2 mr-2">
