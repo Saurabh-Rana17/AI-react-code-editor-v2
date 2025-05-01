@@ -6,4 +6,8 @@ export const EditorContext = createContext({
   setLanguage: () => {},
   theme: "cobalt",
   setTheme: () => {},
+  setShowAiEditor: () => {},
+  setOpenModal: () => {},
+  code: "",
+  language: "",
 });

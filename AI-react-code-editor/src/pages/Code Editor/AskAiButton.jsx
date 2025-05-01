@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { EditorContext } from "./EditorContext";
 
-export default function AskAiButton({ handleAskAi }) {
+export default function AskAiButton() {
+  const { setOpenModal } = useContext(EditorContext);
+  function handleAskAi() {
+    setOpenModal(true);
+  }
   return (
     <div className="px-2 py-2 ">
       <button

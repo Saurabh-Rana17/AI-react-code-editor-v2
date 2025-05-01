@@ -7,16 +7,16 @@ import AskAiButton from "./AskAiButton";
 import PreviewEditorButton from "./PreviewEditorButton";
 import SaveButton from "./SaveButton";
 
-export default function Menu({ handleShowAiEditor, handleSave, handleAskAi }) {
+export default function Menu() {
   return (
     <div className="flex flex-row">
       <FileUploader />
       <LanguagesDropdown />
       <ThemeDropdown />
-      <SwitchAi handleShowAiEditor={handleShowAiEditor} />
-      <AskAiButton handleAskAi={handleAskAi} />
+      <SwitchAi />
+      <AskAiButton />
       <PreviewEditorButton />
-      <SaveButton handleSave={handleSave} />
+      <SaveButton />
     </div>
   );
 }

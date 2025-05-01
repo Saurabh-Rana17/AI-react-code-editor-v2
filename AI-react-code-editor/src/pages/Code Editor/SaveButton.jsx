@@ -1,7 +1,49 @@
-import React from "react";
+import React, { useContext } from "react";
 import { CiSaveDown2 } from "react-icons/ci";
+import { EditorContext } from "./EditorContext";
 
-export default function SaveButton({ handleSave }) {
+export default function SaveButton() {
+  const { code, language } = useContext(EditorContext);
+
+  function handleSave() {
+    const blob = new Blob([code], { type: "text/plain" });
+
+    // Generate a URL for the Blob object
+    const url = URL.createObjectURL(blob);
+
+    // Create an anchor element with download attribute set to the desired filename and href attribute set to the generated URL
+    const a = document.createElement("a");
+    a.href = url;
+    switch (language.name) {
+      case "javascript":
+        a.download = "myCode.js"; // Change the filename as needed
+        break;
+      case "java":
+        a.download = "myCode.java"; // Change the filename as needed
+        break;
+      case "python":
+        a.download = "myCode.py"; // Change the filename as needed
+        break;
+      case "c":
+        a.download = "myCode.c"; // Change the filename as needed
+        break;
+      case "cpp":
+        a.download = "myCode.cpp"; // Change the filename as needed
+        break;
+
+      default:
+        a.download = "myCode.txt"; // Change the filename as needed
+
+        break;
+    }
+
+    // Simulate a click on the anchor element to trigger the file download
+    a.click();
+
+    // Clean up by revoking the URL object to free up resources
+    URL.revokeObjectURL(url);
+  }
+
   return (
     <div className="px-2 py-2 ">
       <button
