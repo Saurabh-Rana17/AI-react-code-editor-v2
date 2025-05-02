@@ -38,7 +38,13 @@ export default function AiModal({ openModal, setOpenModal }) {
   }
 
   return (
-    <Modal show={openModal} onClose={() => setOpenModal(false)}>
+    <Modal
+      show={openModal}
+      onClose={() => {
+        setOpenModal(false);
+        setGptLoading(false);
+      }}
+    >
       <Modal.Header>Ask Ai</Modal.Header>
       <Modal.Body>
         <form onSubmit={handleGptResp}>
