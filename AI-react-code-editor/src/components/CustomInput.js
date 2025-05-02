@@ -4,7 +4,6 @@ import { classnames } from "../utils/general";
 const CustomInput = ({ customInput, setCustomInput }) => {
   return (
     <>
-      {" "}
       <textarea
         rows="5"
         value={customInput}

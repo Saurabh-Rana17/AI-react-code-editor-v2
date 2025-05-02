@@ -34,11 +34,10 @@ const MainEditor = () => {
 
   useEffect(() => {
     if (enterPress && ctrlPress) {
-      console.log("enterPress", enterPress);
-      console.log("ctrlPress", ctrlPress);
       handlePiston();
     }
   }, [ctrlPress, enterPress]);
+
   const onChange = (action, data) => {
     switch (action) {
       case "code": {
@@ -48,41 +47,6 @@ const MainEditor = () => {
       default: {
         console.warn("case not handled!", action, data);
       }
-    }
-  };
-
-  const checkStatus = async (token) => {
-    const options = {
-      method: "GET",
-      url: process.env.REACT_APP_RAPID_API_URL + "/" + token,
-      params: { base64_encoded: "true", fields: "*" },
-      headers: {
-        "X-RapidAPI-Host": process.env.REACT_APP_RAPID_API_HOST,
-        "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY,
-      },
-    };
-    try {
-      let response = await axios.request(options);
-      let statusId = response.data.status?.id;
-
-      // Processed - we have a result
-      if (statusId === 1 || statusId === 2) {
-        // still processing
-        setTimeout(() => {
-          checkStatus(token);
-        }, 2000);
-        return;
-      } else {
-        setProcessing(false);
-        setOutputDetails(response.data);
-        showSuccessToast(`Compiled Successfully!`);
-        console.log("response.data", response.data);
-        return;
-      }
-    } catch (err) {
-      console.log("err", err);
-      setProcessing(false);
-      showErrorToast();
     }
   };
 
@@ -103,6 +67,7 @@ const MainEditor = () => {
       progress: undefined,
     });
   };
+
   const showErrorToast = (msg, timer) => {
     toast.error(msg || `Something went wrong! Please try again.`, {
       position: "top-right",
@@ -162,9 +127,6 @@ const MainEditor = () => {
     }
   }
 
-  // console.log(code, filecode);
-
-  // console.log(activePrompt);
   return (
     <>
       <EditorContext.Provider
